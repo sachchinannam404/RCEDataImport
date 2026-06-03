@@ -1,0 +1,11 @@
+Name,Email,Department,OrderNumber,Amount,OrderDate
+John Doe,john.doe@example.com,Sales,ORD-001,150.50,2026-01-15
+John Doe,john.doe@example.com,Sales,ORD-002,299.99,2026-02-10
+Jane Smith,jane.smith@example.com,Marketing,ORD-003,75.25,2026-01-20
+Jane Smith,jane.smith@example.com,Marketing,ORD-004,450.00,2026-02-05
+Michael Johnson,michael.j@example.com,Engineering,ORD-005,1200.00,2026-02-14
+Michael Johnson,michael.j@example.com,Engineering,ORD-006,850.75,2026-01-30
+Sarah Williams,sarah.w@example.com,HR,ORD-007,320.00,2026-02-20
+Sarah Williams,sarah.w@example.com,HR,ORD-008,199.99,2026-01-25
+David Brown,david.brown@example.com,Finance,ORD-009,500.00,2026-02-11
+David Brown,david.brown@example.com,Finance,ORD-010,675.50,2026-02-01
