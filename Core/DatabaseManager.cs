@@ -7,6 +7,7 @@ namespace RCEDataImport.Core
 {
     /// <summary>
     /// Manages database operations in a generic way.
+    /// Note: CreateTablesAsync has been made a no-op; table creation should be managed externally.
     /// </summary>
     public class DatabaseManager
     {
@@ -20,47 +21,13 @@ namespace RCEDataImport.Core
         }
 
         /// <summary>
-        /// Creates required database tables.
+        /// Previously created and dropped tables. To support environments
+        /// where schema is managed externally, this method is now a no-op.
         /// </summary>
         public async Task CreateTablesAsync()
         {
-            _logger.Info("Creating tables...");
-
-            using (var connection = new NpgsqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-
-                // Drop existing tables
-                await ExecuteCommandAsync(connection, @"
-                    DROP TABLE IF EXISTS Orders CASCADE;
-                    DROP TABLE IF EXISTS Users CASCADE;");
-
-                // Create Users table
-                await ExecuteCommandAsync(connection, @"
-                    CREATE TABLE Users (
-                        Id SERIAL PRIMARY KEY,
-                        Name VARCHAR(100) NOT NULL,
-                        Email VARCHAR(100) NOT NULL UNIQUE,
-                        Department VARCHAR(100),
-                        CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                    );");
-
-                // Create Orders table
-                await ExecuteCommandAsync(connection, @"
-                    CREATE TABLE Orders (
-                        Id SERIAL PRIMARY KEY,
-                        UserId INT NOT NULL REFERENCES Users(Id) ON DELETE CASCADE,
-                        OrderNumber VARCHAR(50) NOT NULL,
-                        Amount DECIMAL(10, 2) NOT NULL,
-                        OrderDate DATE,
-                        Status VARCHAR(50) DEFAULT 'Pending',
-                        CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-                    );");
-
-                connection.Close();
-            }
-
-            _logger.Info("✓ Tables created successfully!\n");
+            _logger.Info("Skipping table creation: schema must be managed outside the importer.");
+            await Task.CompletedTask;
         }
 
         /// <summary>
